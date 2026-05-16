@@ -1,20 +1,17 @@
-# Use the official Node.js 14 image as a base image
+# Install dependencies
+FROM node:14-alpine AS builder
+
+WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY server.js ./
+
+
+# Production stage
 FROM node:14-alpine
 
-# Set the working directory in the container
 WORKDIR /usr/src/app
-
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
-
-# Install the application's dependencies inside the container
-RUN npm install
-
-# Copy the rest of the application code to the container
-COPY . .
-
-# Exposing Port to the container
+COPY --from=builder /usr/src/app /usr/src/app
+RUN npm prune --production
 EXPOSE 3000
-
-# Specify the command to run when the container starts
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]
