@@ -3,7 +3,7 @@ services:
     build: ./frontend
     ports:
       - "3000:3000"
-    image: 876225477961.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/frontend:latest
     networks:
       - backend-network
 
@@ -11,7 +11,7 @@ services:
     build: ./backend
     ports:
       - "8080:8080"
-    image: 876225477961.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/backend:latest
     networks:
       - backend-network
   
