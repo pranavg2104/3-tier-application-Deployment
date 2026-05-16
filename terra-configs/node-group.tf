@@ -10,7 +10,7 @@ resource "aws_eks_node_group" "node_group" {
     min_size     = 1
   }
 
-  subnet_ids = data.aws_subnet_ids.default.ids
+  subnet_ids = data.aws_subnets.default.ids
 
   node_role_arn = aws_iam_role.node.arn
 

@@ -4,7 +4,7 @@ resource "aws_eks_cluster" "cloud-application" {
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
-    subnet_ids = data.aws_subnet_ids.default.ids
+    subnet_ids = data.aws_subnets.default.ids
   }
   
   depends_on = [
