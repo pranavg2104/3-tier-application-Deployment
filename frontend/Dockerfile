@@ -4,7 +4,6 @@ FROM node:14-alpine AS builder
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm ci
-COPY server.js ./
 
 
 # Production stage
