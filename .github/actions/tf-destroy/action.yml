@@ -5,7 +5,7 @@ inputs:
   work-dir:
     description: 'The working directory where the Terraform configuration files are located.'
     required: false
-    default: './terra-config'
+    default: 'terra-config'
   build-id:
     description: "Build ID for the Artifacts"
     required: true
