@@ -39,10 +39,10 @@ runs:
     - name: Download Terraform Plan
       uses: actions/download-artifact@v4
       with:
-        name: tfplan-${{ inputs.build-id }}
+        name: destroy.tfplan-${{ inputs.build-id }}
         path: ${{ inputs.work-dir }}
     
     - name: Terraform Destroy
-      run: terraform destroy tfplan -auto-approve
+      run: terraform apply destroy.tfplan
       shell: bash
       working-directory: ${{ inputs.work-dir }}
