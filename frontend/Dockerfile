@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm ci
 
+COPY . .
 
 # Production stage
 FROM node:14-alpine
