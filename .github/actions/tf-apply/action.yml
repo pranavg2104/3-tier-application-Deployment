@@ -52,7 +52,7 @@ runs:
       working-directory: ${{ inputs.work-dir }}
 
     - name: Upload Terraform Plan
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: tfplan-${{ inputs.build-id }}
         path: ${{ inputs.work-dir }}/tfplan
