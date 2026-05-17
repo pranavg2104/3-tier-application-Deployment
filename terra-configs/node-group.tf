@@ -2,7 +2,7 @@ resource "aws_eks_node_group" "node_group" {
   cluster_name = aws_eks_cluster.cloud-application.name
   node_group_name = "three-tier-application-node-group"
 
-  instance_types = ["t2.medium"]
+  instance_types = ["t3.small"]
 
   scaling_config {
     desired_size = 2
