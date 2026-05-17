@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: pranav_application
+  namespace: pranav-application
   name: mongodb
 spec:
   replicas: 1

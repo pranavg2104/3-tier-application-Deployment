@@ -1,0 +1,43 @@
+name: Deploy to Kubernetes
+description: Deploys the application to a Kubernetes cluster using kubectl.
+
+inputs:
+  aws-access-key-id:
+    description: 'AWS Access Key ID'
+    required: true
+  aws-secret-access-key:
+    description: 'AWS Secret Access Key'
+    required: true
+  aws-region:
+    description: 'AWS Region'
+    required: false
+    default: 'ap-south-1'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+
+    - name: Update kubeconfig
+      run: aws eks update-kubeconfig --name three-tier-application-cluster
+      shell: bash
+
+    - name: Create Namespace
+      run: |
+        kubectl create namespace pranav-application || true
+        kubectl config set-context --current --namespace=pranav-application
+      shell: bash
+
+    - name: Deploy Application
+      run: |
+        kubectl apply -f frontend-deployment.yaml -f frontend-service.yaml
+        kubectl apply -f backend-deployment.yaml -f backend-service.yaml
+        cd mongo
+        kubectl apply -f .
+      shell: bash
+      working-directory: infra

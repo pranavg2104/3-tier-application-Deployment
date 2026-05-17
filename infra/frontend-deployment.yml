@@ -1,8 +1,8 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
-  namespace: pranav_application
+  namespace: pranav-application
   labels:
     role: frontend
     env: demo
@@ -13,7 +13,7 @@ spec:
       role: frontend
   strategy:
     type: RollingUpdate
-    rollingParams:
+    rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 1
   template:
@@ -24,10 +24,8 @@ spec:
     spec:
       containers:
         - name: frontend-container
-          image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/frontend:latest
+          image: 876225477961.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
           imagePullPolicy: Always
-          imagePullSecrets:
-            - name: ecr-registry-secret
           ports:
             - containerPort: 3000
           env:
